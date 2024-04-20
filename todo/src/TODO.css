@@ -1,3 +1,61 @@
-.list{
-    list-style: none;
-}
+.container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .create-task,
+  .filter-tasks {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  textarea,
+  select {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+  }
+  
+  .all-tasks table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .all-tasks th,
+  .all-tasks td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .all-tasks th {
+    background-color:yellow;
+  }
+  .all-tasks td{
+    background-color: lightpink;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 100%;
+      padding: 20px;
+    }
+  
+    button {
+      margin-bottom: 10px;
+    
+    }
+  
+    .all-tasks th,
+    .all-tasks td {
+      font-size: 14px;
+    }
+  }
+  
