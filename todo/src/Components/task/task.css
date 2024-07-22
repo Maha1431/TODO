@@ -1,0 +1,80 @@
+.task-columns {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .task-column {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  .add{
+    background-color: #007bff;
+    border:1px solid #CCC;
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+  }
+  .searchbar{
+    width: 70%;
+    padding: 3px;
+   
+  }
+  .bar{
+    border: 1px solid #CCC;
+    padding: 10px;
+    display: flex;
+   justify-content: space-between;
+  }
+  .sort-select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  .task-item {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #8fbff7;
+    cursor: move;
+  }
+  
+  .task-item.dragging {
+    opacity: 0.5;
+  }
+  
+  .view{
+    background-color: red;
+    gap: 5px;
+    color: white;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  .edit{
+    background-color: #71b0f3;
+    gap: 5px;
+    color: white;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  .delete{
+    background-color: blue;
+    gap: 5px;
+    color: white;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  .buttons{
+    text-align: end;
+  }
