@@ -1,34 +1,31 @@
-console.log("backend start");
+console.log("backend started");
 
-// index.js
 const express = require('express');
 const mongoose = require('mongoose');
 const tasksRouter = require('./Routes/TaskRoutes');
-const compression = require("compression");
+const userRouter = require('./Routes/userRoutes');
 const cors = require("cors");
-
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
-
-// parse urlencoded request body
+// Parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
-// gzip compression
-app.use(compression());
-
-// enable cors
+// Enable CORS
 app.use(cors());
 app.options("*", cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/taskManger', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Failed to connect to MongoDB', err));
 
 // Use the tasks router for all routes related to tasks
-app.use('/tasks', tasksRouter);
+app.use('/api/tasks', tasksRouter); // Fixed the route prefix
+
+app.use('/api/auth', userRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,18 +1,10 @@
-// models/Task.js
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema({
-    id: mongoose.Schema.Types.ObjectId,
-  title: {
-    type: String,
-    required: true
-  },
-  description: String,
-  status: {
-    type: String,
-    enum: ['To Do', 'In Progress', 'Done'],
-    required: true
-  }
-});
+const TaskSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String }, // Optional field for task description
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+}, { timestamps: true }); // Aut
 
-module.exports = mongoose.model('Task', taskSchema);
+
+module.exports = mongoose.model('Task', TaskSchema);

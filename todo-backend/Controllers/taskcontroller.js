@@ -1,77 +1,42 @@
-// controllers/taskController.js
-const taskService = require('../Services/taskService');
-const Joi = require('joi');
-const taskSchema = require('../Models/taskModel');
+const Task = require('../Models/taskModel');
 
-// Get all tasks
-async function getAllTasks(req, res) {
+exports.getTasks = async (req, res) => {
   try {
-    const tasks = await taskService.getAllTasks();
+    const tasks = await Task.find();
     res.json(tasks);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: err.message });
   }
-}
+};
 
-// Get a single task by ID
-async function getTaskById(req, res) {
+exports.createTask = async (req, res) => {
+  const { title,description, userId} = req.body;
   try {
-    const task = await taskService.getTaskById(req.params.id);
-    if (!task) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
+    const task = new Task({ title, description, userId: userId });
+    await task.save();
+    res.status(201).json(task);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { title,description } = req.body;
+  try {
+    const task = await Task.findByIdAndUpdate(id, { title, description }, { new: true });
     res.json(task);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(400).json({ error: err.message });
   }
-}
+};
 
-// Create a new task
-async function createTask(req, res) {
+exports.deleteTask = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { error } = taskSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({ error: error.details[0].message });
-    }
-    const task = await taskService.createTask(req.body);
-    res.json(task);
+    await Task.findByIdAndDelete(id);
+    res.json({ message: 'Task deleted' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: err.message });
   }
-}
-
-// Update a task
-async function updateTask(req, res) {
-    try {
-      const Id = req.params.id; // Assuming the user ID is passed as a route parameter
-      const taskData = req.body;
-      const updatedTask = await taskService.updateTask(Id, taskData);
-      res.json(updatedTask);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
-  
-// Delete a task
-async function deleteTask(req, res) {
-  try {
-    const Id = req.params.id; // Assuming the user ID is passed as a route parameter
-      await taskService.deleteTask(Id);
-    res.json({ message: 'Task deleted successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-}
-
-module.exports = {
-  getAllTasks,
-  getTaskById,
-  createTask,
-  updateTask,
-  deleteTask
 };
