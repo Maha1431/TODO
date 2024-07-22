@@ -27,7 +27,7 @@ const Register = ({ onLoginClick }) => {
 
     // Make API request
     try {
-      await axios.post('http://localhost:4000/api/auth/register', { firstName, lastName, email, password, confirmPassword });
+      await axios.post('https://task-management-5fa0.onrender.com/api/auth/register', { firstName, lastName, email, password, confirmPassword });
       
       // Handle successful registration
       toast.success('Registration successful! ..');
